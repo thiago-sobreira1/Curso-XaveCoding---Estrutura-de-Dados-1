@@ -21,4 +21,5 @@ int main() {
     printf("c = %d\n", c);
 
     return 0;
+    return 0;
 }
