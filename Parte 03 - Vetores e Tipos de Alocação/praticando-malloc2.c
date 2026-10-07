@@ -11,12 +11,12 @@
         vetor = malloc(tamanho * sizeof(int));
 
         for (int i = 0; i < tamanho; i++) {
-            printf("Digite o número %d\n", i);
-            scanf("%d\n", vetor[i]);
+            printf("Digite o número %d: \n", i + 1);
+            scanf("%d\n", &vetor[i]);
         }
 
         for (int i = 0; i < tamanho; i++) {
-            printf("Número: %d\n", i);
+            printf("Número: %d\n", vetor[i]);
         }
 
         free(vetor);
