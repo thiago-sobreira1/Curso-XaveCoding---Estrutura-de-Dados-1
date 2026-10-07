@@ -12,11 +12,11 @@
 
         for (int i = 0; i < tamanho; i++) {
             printf("Digite o número %d: \n", i + 1);
-            scanf("%d\n", &vetor[i]);
+            scanf("%d", &vetor[i]);
         }
 
         for (int i = 0; i < tamanho; i++) {
-            printf("Número: %d\n", vetor[i]);
+            printf("Número %d: %d\n", i + 1, vetor[i]);
         }
 
         free(vetor);
