@@ -1,12 +1,6 @@
 #include <stdio.h> 
 #include <stdlib.h> // contem o NULL, calloc, malloc, free
 
-void mostrarValor(int *vetor, int tamanho) {
-    for (int i = 0; i < tamanho; i++) {
-        printf("Número %d: %d\n", i + 1, vetor[i]);
-    }
-    
-}
 
 int main() {
     int tamanho; 
@@ -21,9 +15,11 @@ int main() {
         printf("Digite o número %d: \n", i + 1);
         scanf("%d", &vetor[i]);
     }
-
-    mostrarValor(vetor, tamanho);
-
+    
+    for (int i = 0; i < tamanho; i++) {
+        printf("Número %d: %d\n", i + 1, vetor[i]);
+    }
+    
     free(vetor);
     vetor = NULL; 
     
