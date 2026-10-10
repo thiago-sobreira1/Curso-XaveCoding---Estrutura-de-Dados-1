@@ -4,10 +4,6 @@
 int* criaVetor(int n) {
     int *vetor = malloc(n * sizeof(int));
 
-    if(vetor == NULL) {
-        return NULL;
-    } 
-
     for(int i = 0; i < n; i++) {
         vetor[i] = i * i;
     }
@@ -37,7 +33,7 @@ int main(void) {
     vetor = criaVetor(n);
 
     if (vetor == NULL) {
-        printf("Erro, não foi possível alocar memória!");
+        printf("Erro, não foi possível alocar memória!\n");
         return 1;
     }
 
@@ -45,6 +41,6 @@ int main(void) {
 
     liberarVetor(&vetor);
 
-
+    return 0;
 }
 
