@@ -38,6 +38,12 @@
 
         // FALTA DESALOCAR A MATRIZ DINÂMICA
 
+        for(int i = 0; i < nrows; i++) {
+            free(m[i]);
+        }
+        free(m);
+        m = NULL ;
+
         return 0;
     }
 
