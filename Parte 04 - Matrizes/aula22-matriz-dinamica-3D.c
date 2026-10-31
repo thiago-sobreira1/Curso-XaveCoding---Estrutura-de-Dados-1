@@ -11,11 +11,11 @@
 
         int ***m = (int***) calloc(n_slice, sizeof(int**));
 
-        // para cada fatia
+        // para cada fatia (alocação)
         for (int k = 0; k < n_slice; k++) {
             m[k] = (int **) calloc(n_rows, sizeof(int*));
 
-            // para cada linha
+            // para cada linha (alocação)
             for(int i = 0; i < n_rows; i++) {
                 m[k][i] = (int*) calloc(n_cols, sizeof(int));
             }
@@ -27,16 +27,16 @@
 
         printf("&m = %p, m = %p\n\n", &m, m);
 
-        // para cada fatia
+        // para cada fatia (imprimindo)
         for (int k = 0; k < n_slice; k++) {
             printf("&m[%d] = %p, m[%d] = %p\n", k, &m[k], k, m[k]);
 
-            // para cada linha
+            // para cada linha (imprimindo)
             for (int i = 0; i < n_rows; i++) {
                 printf("&m[%d][%d] = %p, m[%d][%d] = %p\n", 
                         k, i, &m[k][i], k, i, m[k][i]);
                 
-                // para cada coluna
+                // para cada coluna (colocando valores)
                 for (int j = 0; j < n_cols; j++) {
                     m[k][i][j] = count++;
 
