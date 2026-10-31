@@ -51,6 +51,20 @@
 
         // Falta desalocar matriz 3D dinâmica, veremos depois
         
+        // para cada fatia
+        for (int k = 0; k < n_slice; k++) {
+            // para cada linha
+            for (int i = 0; i < n_rows; i++) {
+                free(m[k][i]);
+            }
+
+            free(m[k]);
+        }
+
+        free(m);
+        m = NULL;
+        
+        
         
         return 0;
     }
