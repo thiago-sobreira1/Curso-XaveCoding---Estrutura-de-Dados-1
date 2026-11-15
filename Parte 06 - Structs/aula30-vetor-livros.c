@@ -9,12 +9,6 @@ typedef struct _livro {
     float preco;
 } Livro;
 
-typedef struct _vetor_livros {
-    Livro **vet; // nosso vetor
-    int size; // número de elementos
-} VetorLivro;
-
-
 // como se fosse um "construtor" para livros
 Livro *create_livro(const char *titulo, unsigned int num_paginas, float preco) {
     // declaração de livro com o tipo de dado Livro 
