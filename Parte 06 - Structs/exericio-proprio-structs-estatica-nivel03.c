@@ -13,8 +13,6 @@ void cadastrarProduto (Produto *produtos, int *totalProdutos) {
 
     int indice = *totalProdutos;
 
-    //strcpy(novoProduto[1].nome, "James");
-
     if (indice < 5) {
         printf("------------ 1 - Cadastrar produto ------------ \n");
         printf("Digite o nome do produto: \n");
@@ -25,18 +23,14 @@ void cadastrarProduto (Produto *produtos, int *totalProdutos) {
 
         printf("Digite a quantidade: \n");
         scanf("%d", &novoProduto[indice].quantidade);
-        
-        //*totalProdutos = *totalProdutos++;
-    }
-
-    
+    }    
 }
 
 void listarProdutos(Produto *produtos, int totalProdutos) {
-
     printf("------------ 2 - Listar produtos ------------ \n");
     for (int i = 0; i < totalProdutos; i++) {
         printf("Produto %d: %s\n", i + 1, produtos[i].nome);
+        printf("Quantidade: %d\n", i + 1, produtos[i].quantidade);
     }
 }
 
@@ -71,10 +65,31 @@ void buscarProduto (Produto *produtos, int totalProdutos) {
     
 }
 
-void atulizarQuantidade() {
-    
-}
+void atulizarQuantidade(Produto *produtos, int totalProdutos) {
+    // exibir todos os produtos cadastrados (até o momento)
+    // usuário escolher o produto que quer atualizar somente o ESTOQUE
+    // receber o vetor como parametro
+    // mudar a quantidade exatamente do produto escolhido 
 
+    int opcaoEscolhida;
+    int novaQuantidade;
+
+    printf("------------ 4 - Atualizar quantidade ------------ \n");
+
+    for (int i = 0; i < totalProdutos; i++) {
+        printf("Produto %d: %s\n", i, produtos[i].nome);
+    } 
+    
+    printf("Escolha o produto que deseja atualizar o estoque: \n");
+    scanf("%d", &opcaoEscolhida);
+    
+    printf("Digite a nova quantidade do produto: \n");
+    scanf("%d", &novaQuantidade);
+
+    *produtos[opcaoEscolhida].quantidade = novaQuantidade;
+
+    return;
+}
 
 int main() {
 
@@ -115,10 +130,12 @@ int main() {
                 buscarProduto(produtos, totalProdutos);
                 break;
             case 4: 
+                atulizarQuantidade(produtos, totalProdutos);
                 break;
             case 5: 
                 break;
             case 0:
+                printf("Saindo...\n");
                 break;
             default:
                 printf("Opcao invalida. Tente novamente.\n");
