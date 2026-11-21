@@ -30,7 +30,7 @@ void listarProdutos(Produto *produtos, int totalProdutos) {
     printf("------------ 2 - Listar produtos ------------ \n");
     for (int i = 0; i < totalProdutos; i++) {
         printf("Produto %d: %s\n", i + 1, produtos[i].nome);
-        printf("Quantidade: %d\n", i + 1, produtos[i].quantidade);
+        printf("Quantidade: %d\n", produtos[i].quantidade);
     }
 }
 
@@ -77,18 +77,34 @@ void atulizarQuantidade(Produto *produtos, int totalProdutos) {
     printf("------------ 4 - Atualizar quantidade ------------ \n");
 
     for (int i = 0; i < totalProdutos; i++) {
-        printf("Produto %d: %s\n", i, produtos[i].nome);
+        printf("Produto %d: %s\n", i + 1, produtos[i].nome);
     } 
-    
+
     printf("Escolha o produto que deseja atualizar o estoque: \n");
     scanf("%d", &opcaoEscolhida);
     
-    printf("Digite a nova quantidade do produto: \n");
-    scanf("%d", &novaQuantidade);
+    if (opcaoEscolhida > 0 && opcaoEscolhida <= totalProdutos) {
+        printf("Digite a nova quantidade do produto: \n");
+        scanf("%d", &novaQuantidade);
+    } else {
+        printf("Número inválido, tente novamente!\n");
+    }
 
-    *produtos[opcaoEscolhida].quantidade = novaQuantidade;
+    produtos[opcaoEscolhida - 1].quantidade = novaQuantidade;
+}
 
-    return;
+void valorTotalEstoque (Produto *produtos, int totalProdutos) {
+
+    printf("------------ 5 - Valor total do estoque ------------ \n");
+
+    float valorAtual = 0;
+
+    for (int i = 0; i < totalProdutos; i++) {
+        valorAtual += produtos[i].preco * produtos[i].quantidade;
+    }
+
+    printf("Valor total do estoque: R$ %.2f\n", valorAtual);
+
 }
 
 int main() {
@@ -130,9 +146,15 @@ int main() {
                 buscarProduto(produtos, totalProdutos);
                 break;
             case 4: 
-                atulizarQuantidade(produtos, totalProdutos);
+                if (totalProdutos > 0) {
+                    atulizarQuantidade(produtos, totalProdutos);
+                }
                 break;
             case 5: 
+                if (totalProdutos > 0) {
+                    valorTotalEstoque(produtos, totalProdutos);
+                }
+                
                 break;
             case 0:
                 printf("Saindo...\n");
@@ -143,5 +165,5 @@ int main() {
         }
     } while (opção != 0); 
     
-    //return 0;
+    return 0;
 }
