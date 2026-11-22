@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 typedef struct produto {
@@ -9,21 +8,26 @@ typedef struct produto {
 } Produto;
 
 void cadastrarProduto (Produto *produtos, int *totalProdutos) {
-    Produto *novoProduto = produtos;
+    printf("------------ 1 - Cadastrar produto ------------ \n");
+    printf("Digite o nome do produto: \n");
+    scanf("%49s", produtos[*totalProdutos].nome);
 
-    int indice = *totalProdutos;
+    printf("Digite o preço: \n");
+    scanf("%f", &produtos[*totalProdutos].preco);
 
-    if (indice < 5) {
-        printf("------------ 1 - Cadastrar produto ------------ \n");
-        printf("Digite o nome do produto: \n");
-        scanf("%49s", novoProduto[indice].nome);
+    printf("Digite a quantidade: \n");
+    scanf("%d", &produtos[*totalProdutos].quantidade);
 
-        printf("Digite o preço: \n");
-        scanf("%f", &novoProduto[indice].preco);
-
-        printf("Digite a quantidade: \n");
-        scanf("%d", &novoProduto[indice].quantidade);
-    }    
+    // maneiras diferentes de incrementar: 
+    // 1 -  (*totalProdutos)++; 
+    //(os parênteses forçam a desreferência antes da soma)
+    
+    // 2 - *totalProdutos += 1;
+    // (mais legível e sem risco de erro de precedência)
+    
+    *totalProdutos = *totalProdutos + 1; 
+    // (explícito e seguro)
+    
 }
 
 void listarProdutos(Produto *produtos, int totalProdutos) {
@@ -31,6 +35,7 @@ void listarProdutos(Produto *produtos, int totalProdutos) {
     for (int i = 0; i < totalProdutos; i++) {
         printf("Produto %d: %s\n", i + 1, produtos[i].nome);
         printf("Quantidade: %d\n", produtos[i].quantidade);
+        printf("Preço: %.2f\n\n", produtos[i].preco);
     }
 }
 
@@ -44,12 +49,12 @@ void buscarProduto (Produto *produtos, int totalProdutos) {
     // strcmp: 0 (são iguais), menor que 0 (), maior que 0 ()
 
     char nomeProduto[50];
-    int achouProduto;
+    int achouProduto = 0;
 
     printf("------------ 3 - Buscar produtos ------------ \n");
     
     printf("Digite o nome do produto a ser localizado: ");
-    scanf("%s49", nomeProduto);
+    scanf("%49s", nomeProduto);
 
     for (int i = 0; i < totalProdutos; i++) {
         if (strcmp(produtos[i].nome, nomeProduto) == 0) {
@@ -65,12 +70,7 @@ void buscarProduto (Produto *produtos, int totalProdutos) {
     
 }
 
-void atulizarQuantidade(Produto *produtos, int totalProdutos) {
-    // exibir todos os produtos cadastrados (até o momento)
-    // usuário escolher o produto que quer atualizar somente o ESTOQUE
-    // receber o vetor como parametro
-    // mudar a quantidade exatamente do produto escolhido 
-
+void atualizarQuantidade(Produto *produtos, int totalProdutos) {
     int opcaoEscolhida;
     int novaQuantidade;
 
@@ -86,11 +86,16 @@ void atulizarQuantidade(Produto *produtos, int totalProdutos) {
     if (opcaoEscolhida > 0 && opcaoEscolhida <= totalProdutos) {
         printf("Digite a nova quantidade do produto: \n");
         scanf("%d", &novaQuantidade);
+
+        if (novaQuantidade > 0) {
+            produtos[opcaoEscolhida - 1].quantidade = novaQuantidade;
+        } else {
+            printf("Digite um número positivo!\n");
+        }
     } else {
         printf("Número inválido, tente novamente!\n");
     }
 
-    produtos[opcaoEscolhida - 1].quantidade = novaQuantidade;
 }
 
 void valorTotalEstoque (Produto *produtos, int totalProdutos) {
@@ -113,7 +118,7 @@ int main() {
 
     int totalProdutos = 0;
 
-    int opção;
+    int opcao;
 
     do {
         printf("\n===== SISTEMA DE ESTOQUE =====\n");
@@ -124,13 +129,12 @@ int main() {
         printf("5 - Valor total do estoque\n");
         printf("0 - Sair\n");
         printf("Escolha uma opção: \n");
-        scanf("%d", &opção);
+        scanf("%d", &opcao);
 
-        switch(opção) {
+        switch(opcao) {
             case 1: 
                 if (totalProdutos < 5) {
                     cadastrarProduto(produtos, &totalProdutos);
-                    totalProdutos++;
                 } else {
                     printf("Número de cadastros de produtos chegou ao máximo!\n");
                 }
@@ -147,7 +151,9 @@ int main() {
                 break;
             case 4: 
                 if (totalProdutos > 0) {
-                    atulizarQuantidade(produtos, totalProdutos);
+                    atualizarQuantidade(produtos, totalProdutos);
+                } else {
+                    printf("Ainda não existe produto cadastrado!\n");
                 }
                 break;
             case 5: 
@@ -163,7 +169,7 @@ int main() {
                 printf("Opcao invalida. Tente novamente.\n");
                 break;
         }
-    } while (opção != 0); 
+    } while (opcao != 0); 
     
     return 0;
 }
