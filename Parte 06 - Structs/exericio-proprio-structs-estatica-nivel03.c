@@ -8,15 +8,37 @@ typedef struct produto {
 } Produto;
 
 void cadastrarProduto (Produto *produtos, int *totalProdutos) {
+    float validarPreco;
+    int validarEstoque;
+
     printf("------------ 1 - Cadastrar produto ------------ \n");
     printf("Digite o nome do produto: \n");
     scanf("%49s", produtos[*totalProdutos].nome);
 
     printf("Digite o preço: \n");
-    scanf("%f", &produtos[*totalProdutos].preco);
+    scanf("%f", &validarPreco);
+
+    while (validarPreco <= 0) {
+        printf("Digite um valor válido!\n");
+        scanf("%f", &validarPreco);
+    }
+
+    if (validarPreco > 0) {
+        produtos[*totalProdutos].preco = validarPreco;
+    }
 
     printf("Digite a quantidade: \n");
-    scanf("%d", &produtos[*totalProdutos].quantidade);
+    scanf("%d", &validarEstoque);
+
+    while (validarEstoque < 0){
+        printf("Digite uma quantidade válida: \n");
+        scanf("%d", &validarEstoque);
+    }
+
+    if (validarEstoque >= 0) {
+        produtos[*totalProdutos].quantidade = validarEstoque;
+    }
+    
 
     // maneiras diferentes de incrementar: 
     // 1 -  (*totalProdutos)++; 
@@ -82,22 +104,25 @@ void atualizarQuantidade(Produto *produtos, int totalProdutos) {
 
     printf("Escolha o produto que deseja atualizar o estoque: \n");
     scanf("%d", &opcaoEscolhida);
-    
-    if (opcaoEscolhida > 0 && opcaoEscolhida <= totalProdutos) {
-        printf("Digite a nova quantidade do produto: \n");
-        scanf("%d", &novaQuantidade);
 
-        if (novaQuantidade > 0) {
-            produtos[opcaoEscolhida - 1].quantidade = novaQuantidade;
-        } else {
-            printf("Digite um número positivo!\n");
-        }
-    } else {
-        printf("Número inválido, tente novamente!\n");
+    while (opcaoEscolhida <= 0 || opcaoEscolhida > totalProdutos) {
+        printf("Digite um produto existente! \n");
+        scanf("%d", &opcaoEscolhida);
+    }
+    
+    printf("Digite a nova quantidade do produto: \n");
+    scanf("%d", &novaQuantidade);
+
+    while (novaQuantidade < 0 || novaQuantidade == produtos[opcaoEscolhida].quantidade) {
+        printf("Digite a nova quantidade válida: \n");
+        scanf("%d", &novaQuantidade);
     }
 
+    if (opcaoEscolhida > 0 && opcaoEscolhida <= totalProdutos) {    
+        produtos[opcaoEscolhida - 1].quantidade = novaQuantidade;
+    }
 }
-
+    
 void valorTotalEstoque (Produto *produtos, int totalProdutos) {
 
     printf("------------ 5 - Valor total do estoque ------------ \n");
