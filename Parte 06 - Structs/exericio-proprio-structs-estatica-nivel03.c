@@ -24,12 +24,6 @@ void cadastrarProduto (Produto *produtos, int *totalProdutos) {
     }
     
     produtos[*totalProdutos].preco = validarPreco;
-    /* if redudante
-    if (validarPreco > 0) {
-        produtos[*totalProdutos].preco = validarPreco;
-    }
-    */
-
     printf("Digite a quantidade: \n");
     scanf("%d", &validarEstoque);
 
@@ -39,22 +33,7 @@ void cadastrarProduto (Produto *produtos, int *totalProdutos) {
     }
 
     produtos[*totalProdutos].quantidade = validarEstoque;
-    /* if redudante
-    if (validarEstoque >= 0) {
-        produtos[*totalProdutos].quantidade = validarEstoque;
-    }
-    */
-
-    // maneiras diferentes de incrementar: 
-    // 1 -  (*totalProdutos)++; 
-    //(os parênteses forçam a desreferência antes da soma)
-    
-    // 2 - *totalProdutos += 1;
-    // (mais legível e sem risco de erro de precedência)
-    
-    *totalProdutos = *totalProdutos + 1; 
-    // (explícito e seguro)
-    
+    *totalProdutos = *totalProdutos + 1;     
 }
 
 void listarProdutos(Produto *produtos, int totalProdutos) {
@@ -67,14 +46,6 @@ void listarProdutos(Produto *produtos, int totalProdutos) {
 }
 
 void buscarProduto (Produto *produtos, int totalProdutos) {
-    // receber o parametro nome do usuário
-    // percorre o vetor com for
-    // em cada posição comparamos as strings
-    // se achar a combinação nós exibimos
-    // se não encontramos colocamos um aviso de não encontrado
-
-    // strcmp: 0 (são iguais), menor que 0 (), maior que 0 ()
-
     char nomeProduto[50];
     int achouProduto = 0;
     int indice;
@@ -84,20 +55,11 @@ void buscarProduto (Produto *produtos, int totalProdutos) {
     printf("Digite o nome do produto a ser localizado: ");
     scanf("%49s", nomeProduto);
 
-    /*
-    while (achouProduto == 0) {
-        
-    }
-    */
-
+    printf("ENTREI NA FUNCAO BUSCAR\n");
     do
     {
         for (int i = 0; i < totalProdutos; i++) {
             if (strcmp(produtos[i].nome, nomeProduto) == 0) {
-                /* printf("Produto encontrado:\n");
-                printf("%s\n", produtos[i].nome);
-                printf("%d\n", produtos[i].quantidade);
-                printf("%.2f\n", produtos[i].preco); */ 
                 achouProduto = 1;
                 indice = i;
             }
@@ -106,30 +68,14 @@ void buscarProduto (Produto *produtos, int totalProdutos) {
             printf("Produto não encontrado!\n");
             printf("Tente novamente!\n\n");
             scanf("%49s", nomeProduto);
+
+            printf("Novo nome recebido: %s\n", nomeProduto);
         }
     } while (achouProduto == 0);
 
-    printf("%s\n", produtos[i].nome);
-    printf("%d\n", produtos[i].quantidade);
-    printf("%.2f\n", produtos[i].preco);
-    
-    /*
-    for (int i = 0; i < totalProdutos; i++) {
-        if (strcmp(produtos[i].nome, nomeProduto) == 0) {
-            printf("Produto encontrado!\n");
-            printf("%s\n", produtos[i].nome);
-            printf("%d\n", produtos[i].quantidade);
-            printf("%.2f\n", produtos[i].preco);
-            achouProduto = 1;
-        }
-    }
-    /*
-
-    /*
-    if (achouProduto == 0) {
-        printf("Produto não encontrado!\n");
-    }
-    */
+    printf("%s\n", produtos[indice].nome);
+    printf("%d\n", produtos[indice].quantidade);
+    printf("%.2f\n", produtos[indice].preco);
 }
 
 void atualizarQuantidade(Produto *produtos, int totalProdutos) {
@@ -159,11 +105,6 @@ void atualizarQuantidade(Produto *produtos, int totalProdutos) {
     }
 
     produtos[opcaoEscolhida - 1].quantidade = novaQuantidade;
-    /* if redudante
-    if (opcaoEscolhida > 0 && opcaoEscolhida <= totalProdutos) {    
-        produtos[opcaoEscolhida - 1].quantidade = novaQuantidade;
-    }
-    */
 }
     
 void valorTotalEstoque (Produto *produtos, int totalProdutos) {
