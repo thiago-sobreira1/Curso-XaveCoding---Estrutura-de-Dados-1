@@ -27,7 +27,7 @@ int main() {
     for (int i = 0; i < n; i++) {
         printf("Produto %d: %s\n", i + 1, produto[i].nome);
 
-        printf("Preço %d: %f\n", i + 1, produto[i].preco);
+        printf("Preço %d: %.2f\n", i + 1, produto[i].preco);
     }
 
     free(produto);
